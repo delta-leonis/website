@@ -1,1 +1,16 @@
-<!–– navigation bar partial ––>
+<div class="nav-sidebar">
+    <img class="hidden-mobile" src="{{ "/assets/img/icons/logo_big.svg" | relative_url }}" alt="">
+    <img class="hidden-desktop logo-text" src="{{ "/assets/img/icons/logo_text.png" | relative_url }}" alt="">
+    <nav class="desktop-nav">
+        <ul class="hidden-mobile">
+            {% assign doclist = site.page_collection | sort: 'position'  %}
+            {% for item in doclist %}
+            {% if item.title == 'home' %}
+                <li class="active {{item.title}}">{{item.title}}</li>
+            {% else %}
+                <li class="{{item.title}}">{{item.title}}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+</div>

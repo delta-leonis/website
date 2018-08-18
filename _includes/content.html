@@ -1,1 +1,19 @@
-<!–– content area partial ––>
+<div class="content-container">
+    <section class="content">
+        {% for item in doclist %}
+        {% if item.title == 'home' %}
+            <div class="active {{item.title}}">
+                <h1>{{item.description}} <span>{{item.title}}</span></h1>
+                {{item.content}}
+            </div>
+        {% else %}
+            <div class="hidden {{item.title}}">
+                <h1>{{item.description}} <span>{{item.title}}</span></h1>
+                {{item.content}}
+            </div>
+        {% endif %}
+
+        {% endfor %}
+    </section>
+    <nav class="nav-footer"></nav>
+</div>
