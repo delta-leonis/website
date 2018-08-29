@@ -5,6 +5,7 @@ body {
   color: $inactive;
   overflow: hidden;
   font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 .container {
@@ -12,7 +13,7 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: 7vw auto;
-  z-index: 5;
+  z-index: 0;
   background: -moz-linear-gradient(left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
   background: -webkit-linear-gradient(left, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
   background: linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
@@ -27,6 +28,8 @@ body {
     grid-column: 1;
     font-variant: small-caps;
     font-size: 1.4em;
+    position: relative;
+    left: -10vw;
 
     .hidden-desktop {
       display: none;
@@ -70,10 +73,12 @@ body {
     overflow: hidden;
 
     .content {
-      width: 60%;
+      width: 65%;
+      height: calc(100% - 32px);
       margin-left: 5%;
       margin-top: 7.5%;
       overflow: auto;
+      opacity: 0;
 
       h1 {
         font-size: 4em;
@@ -86,7 +91,7 @@ body {
 
       }
       p {
-        font-family: 'arial', sans-serif;
+        font-family: 'Cabin', sans-serif;
         color: $main;
         margin: 1% 0 2% 0;
       }
@@ -94,19 +99,26 @@ body {
         width: 100%;
         max-height: 85%;
         padding-right: 5%;
-        padding-bottom: 10%;
+        margin-bottom: calc(33px - 7.5%);
       }
     }
 
+    #drawing {
+      width: 40%;
+      @media screen and (max-width: $mobile) {
+        display: none;
+      }
+    }
     .nav-footer {
       width: 100%;
       display: none;
       border-top: 1px solid $border-color;
       position: absolute;
-      bottom: 0;
+      bottom: -33px;
 
       @media screen and (max-width: $mobile) {
         display: block;
+        height: 32px;
         ul {
           height: 100%;
           max-width: 75%;
@@ -124,26 +136,52 @@ body {
             }
           }
         }
-        height: 32px;
+
       }
     }
   }
+   a > img:first-of-type {
+     position: fixed;
+     right: 0;
+     top: 0;
+     border: 0;
+     opacity: 0;
+     z-index: 10;
+     animation: show 0.5s ease-in 4s forwards;
+     @media screen and (max-width: $mobile) {
+       width: 20%;
+     }
+   }
+  .active {
+    color: $active;
+    display: block;
+  }
+  .hidden {
+    display: none;
+  }
+
 }
 
-#drawing {
-  width: 600px;
-  height: 500px;
-  position: fixed;
-  top: 12%;
-  right: 5%;
-}
+#loading {
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
 
-.active {
-  color: $active;
-  display: block;
-}
-.hidden {
-  display: none;
+  .divider {
+    height: 100vh;
+    width: 0;
+    background: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    animation: divider 0.75s forwards;
+  }
 }
 
 #particles-js {
@@ -154,12 +192,41 @@ body {
   top: 0;
   left: 0;
   z-index: -1;
+  opacity: 0;
+}
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(90, 90, 90, 0.26);
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #292929;
+}
+@keyframes divider {
+  100% {width: 100vw;}
+}
+
+@keyframes slideRight {
+  100% {left: 0}
+}
+@keyframes slideUp {
+  100% {bottom: 0}
 }
 
 @keyframes tilt {
   100% { transform: rotate3d(-5, 5, 0, 50deg); }
 }
-@keyframes clear {
-  100% { transform: scale(0); }
+@keyframes show {
+  100% { opacity: 1 }
 }
+

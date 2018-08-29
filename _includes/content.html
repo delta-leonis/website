@@ -1,28 +1,28 @@
 <div class="content-container">
     <section class="content">
         {% for item in doclist %}
-        {% if item.title == 'home' %}
-            <div class="active {{item.title}}">
-                <h1>{{item.description}} <span>{{item.title}}</span></h1>
-                {{item.content}}
-            </div>
-        {% else %}
-            <div class="hidden {{item.title}}">
-                <h1>{{item.description}} <span>{{item.title}}</span></h1>
-                {{item.content}}
-            </div>
-        {% endif %}
-
+            {% if item.title == 'home' %}
+                <div class="active {{item.title}}">
+                    <h1>{{item.description}} <span>{{item.title}}</span></h1>
+                    {{item.content}}
+                </div>
+            {% else %}
+                <div class="hidden {{item.title}}">
+                    <h1>{{item.description}} <span>{{item.title}}</span></h1>
+                    {{item.content}}
+                </div>
+            {% endif %}
         {% endfor %}
     </section>
+    <section id="drawing" class="hidden-mobile"></section>
     <nav class="nav-footer">
         <ul>
             {% for item in doclist %}
-            {% if item.title == 'home' %}
-            <li class="active {{item.title}}">{{item.title}}</li>
-            {% else %}
-            <li class="{{item.title}}">{{item.title}}</li>
-            {% endif %}
+                {% if item.title == 'home' %}
+                    <li class="active {{item.title}}">{{item.title}}</li>
+                {% else %}
+                    <li class="{{item.title}}">{{item.title}}</li>
+                {% endif %}
             {% endfor %}
         </ul>
     </nav>
