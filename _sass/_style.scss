@@ -1,29 +1,27 @@
-body {
-  height: 100vh;
-  width: 100vw;
+body, html {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   background: black;
   color: $inactive;
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: 'Roboto Condensed', sans-serif;
-
 }
 
 .container {
-  width: 100%;
   height: 100%;
+  flex: 1;
   display: grid;
   grid-template-columns: 7vw auto;
-  z-index: 0;
+  z-index: 1;
   background: -moz-linear-gradient(left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
   background: -webkit-linear-gradient(left, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
   background: linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 );
-  @media screen and (max-width: $mobile) {
-    grid-template-columns: 32px auto;
-  }
 
   .nav-sidebar {
-    height: 100vh;
+    height: 100%;
     border-right: 1px solid $border-color;
     grid-column: 1;
     font-variant: small-caps;
@@ -59,32 +57,33 @@ body {
     }
 
     @media screen and (max-width: $mobile) {
+      width: 42px;
       .hidden-mobile {display: none;}
       .hidden-desktop {display: block}
       background: url('../assets/img/icons/logo_small.svg') no-repeat bottom ;
       background-size: 42px ;
+      position: fixed;
     }
-
   }
   .content-container {
+    height: 90%;
     grid-column: 2;
     position: relative;
     display: flex;
-    overflow: hidden;
 
     .content {
       width: 65%;
-      height: calc(100% - 32px);
-      margin-left: 5%;
-      margin-top: 7.5%;
-      overflow: auto;
+      max-height: calc(100% - 38px);
+      padding-left: 5%;
+      padding-top: 7.5%;
+      box-sizing: border-box;
       opacity: 0;
 
       h1 {
         font-size: 4em;
-        line-height: 50px;
         font-variant: small-caps;
         color: $main;
+
         span {
           color: $secondary;
         }
@@ -93,65 +92,71 @@ body {
       p {
         font-family: 'Cabin', sans-serif;
         color: $main;
-        margin: 1% 0 2% 0;
+        line-height: 1.5rem;
+        padding: 1% 0 2% 0;
+        &:last-of-type {
+          padding-bottom: 75px;
+        }
       }
+
       @media screen and (max-width: $mobile) {
         width: 100%;
         max-height: 85%;
         padding-right: 5%;
-        margin-bottom: calc(33px - 7.5%);
+        padding-bottom: calc(33px - 7.5%);
       }
     }
-
+    a > img:first-of-type {
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: 0;
+      opacity: 0;
+      z-index: 2;
+      animation: show 0.5s ease-in 4s forwards;
+      @media screen and (max-width: $mobile) {
+        width: 20%;
+      }
+    }
     #drawing {
       width: 40%;
       @media screen and (max-width: $mobile) {
         display: none;
       }
     }
-    .nav-footer {
-      width: 100%;
-      display: none;
-      border-top: 1px solid $border-color;
-      position: absolute;
-      bottom: -33px;
 
-      @media screen and (max-width: $mobile) {
-        display: block;
-        height: 32px;
-        ul {
-          height: 100%;
-          max-width: 75%;
-          min-width: 55%;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          font-variant: small-caps;
-          font-size: 2em;
-          li{
-            display: inline;
-            cursor: pointer;
-            &:hover {
-              color: red;
-            }
+  }
+  .nav-footer {
+    width: calc(100% - 42px);
+    background: black;
+    display: none;
+    border-top: 1px solid $border-color;
+    position: fixed;
+    bottom: -43px;
+    right: 0;
+
+    @media screen and (max-width: $mobile) {
+      display: block;
+      height: 32px;
+      ul {
+        height: 100%;
+        max-width:70%;
+        min-width: 65%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-variant: small-caps;
+        font-size: 1.5em;
+        li{
+          display: inline;
+          cursor: pointer;
+          &:hover {
+            color: red;
           }
         }
-
       }
     }
   }
-   a > img:first-of-type {
-     position: fixed;
-     right: 0;
-     top: 0;
-     border: 0;
-     opacity: 0;
-     z-index: 10;
-     animation: show 0.5s ease-in 4s forwards;
-     @media screen and (max-width: $mobile) {
-       width: 20%;
-     }
-   }
   .active {
     color: $active;
     display: block;
@@ -159,7 +164,6 @@ body {
   .hidden {
     display: none;
   }
-
 }
 
 #loading {
@@ -187,11 +191,11 @@ body {
 #particles-js {
 
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 0;
   opacity: 0;
 }
 

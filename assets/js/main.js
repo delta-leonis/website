@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let buttons = await setButtons(svgAnimations);
 
         document.getElementById('loading').style.display = 'none';
+
         particle.style.animation = 'show 1s ease-out 0.2s forwards ';
         navSidebar[0].style.animation = 'slideRight 1.4s forwards';
         navFooter[0].style.animation = 'slideUp 0.2s ease-in 1.4s forwards';
