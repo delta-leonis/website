@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    let canvas = SVG('drawing').size('100%', '100%').viewbox(0,0,640,480),
+    let canvas = SVG('drawing').size('90%', '90%').viewbox(0,0,640,480),
         divider = document.getElementsByClassName('divider'),
         particle = document.getElementById('particles-js'),
         navSidebar = document.getElementsByClassName('nav-sidebar'),

@@ -66,17 +66,17 @@ body, html {
     }
   }
   .content-container {
-    height: 90%;
+    height: 95%;
     grid-column: 2;
     position: relative;
+    padding-left: 4%;
+    padding-top: 4%;
+    box-sizing: border-box;
     display: flex;
 
     .content {
       width: 65%;
       max-height: calc(100% - 38px);
-      padding-left: 5%;
-      padding-top: 7.5%;
-      box-sizing: border-box;
       opacity: 0;
 
       h1 {
@@ -97,9 +97,14 @@ body, html {
         font-family: 'Cabin', sans-serif;
         color: $main;
         line-height: 1.5rem;
-        padding: 1% 0 2% 0;
+        padding-top: 4%;
+
+        &:first-of-type {
+          padding-top: 1%;
+        }
+
         &:last-of-type {
-          padding-bottom: 75px;
+          padding-bottom: 50px;
         }
       }
 
@@ -107,7 +112,7 @@ body, html {
         width: 100%;
         max-height: 85%;
         padding-right: 5%;
-        padding-left: 7%;
+        padding-left: 2%;
         padding-bottom: calc(33px - 7.5%);
       }
     }
@@ -125,7 +130,6 @@ body, html {
     }
     #drawing {
       width: 40%;
-      padding: 0 10px;
       @media screen and (max-width: $mobile) {
         display: none;
       }
