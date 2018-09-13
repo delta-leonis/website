@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function setAnimation(canvas, id) {
     return new Promise(async (resolve, reject) => {
-        for (child of canvas.children()) {
-            child.remove();
-        }
+        await killall(canvas);
         document.getElementById('drawing').style.animation = '';
         switch (id) {
             case 'home':
@@ -78,4 +76,17 @@ function setButtons(canvas) {
         resolve(buttons);
     })
 
+}
+
+function killall(draw){
+    return new Promise(((resolve, reject) => {
+        draw.each(function(i, children) {
+            this.removeClass('*');
+            this.off();
+            this.stop();
+        }, true);
+        draw.ungroup();
+        draw.clear();
+        resolve('done');
+    }))
 }
