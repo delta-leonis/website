@@ -106,7 +106,7 @@ function animator(blueprint) {
   return new Promise(async (resolve,reject) => {
     let animationRef = {};
     if (blueprint.vivus === true) {
-      const myVivus = new Vivus(blueprint.canvas.node.id, {type: 'delayed', duration: 100, animTimingFunction: Vivus.EASE_IN});
+        const myVivus = new Vivus(blueprint.canvas.node.id, {type: 'delayed', duration: 100, start: 'autostart', animTimingFunction: Vivus.EASE_IN});
     }
     for (animation in blueprint.animation) {
       switch (animation) {
@@ -252,7 +252,7 @@ function animateStars(target) {
   return new Promise((resolve, reject) => {
     let starRef = {};
     let duration = 16000;
-    document.getElementById('drawing').style.animation = 'tilt 2s forwards';
+    document.getElementById('svg-container').style.animation = 'tilt 2s forwards';
     for (group in target) {
       let type = target[group].children()[0].type;
       let childArray = target[group].children();

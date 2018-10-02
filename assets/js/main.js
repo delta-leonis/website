@@ -1,35 +1,28 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    let canvas = SVG('drawing').size('90%', '90%').viewbox(0,0,640,480),
-        divider = document.getElementsByClassName('divider'),
-        particle = document.getElementById('particles-js'),
-        navSidebar = document.getElementsByClassName('nav-sidebar'),
-        navFooter = document.getElementsByClassName('nav-footer'),
-        content = document.getElementsByClassName('content');
+    let canvas = SVG('svg-container').size('90%', '90%').viewbox(0,0,640,480),
+        elementList = {
+            particle  : document.getElementById('particles-js'),
+            content   : document.getElementById('content'),
+            navigation: document.getElementById('main-nav'),
+            drawing   : document.getElementById('svg-container')
+        };
 
     particlesJS.load('particles-js', 'assets/js/vendor/particlesjs-config.json', () => {
-        console.log('callback - particles.js config loaded');
+        elementList.particle.style.animation = 'show 3s forwards'
     });
 
-    divider[0].addEventListener('animationend', async (event) => {
-        let svgAnimations = await illustrator(canvas, soccerPitch).then(async (result) => {
-            let animated = await animator(result);
-            return canvas
-        });
-        let buttons = await setButtons(svgAnimations);
-
-        document.getElementById('loading').style.display = 'none';
-
-        particle.style.animation = 'show 1s ease-out 0.2s forwards ';
-        navSidebar[0].style.animation = 'slideRight 1.4s forwards';
-        navFooter[0].style.animation = 'slideUp 0.2s ease-in 1.4s forwards';
-        content[0].style.animation = 'show 2s ease-out 1s forwards ';
+    let svgAnimations = await illustrator(canvas, soccerPitch).then(async (result) => {
+        let animated = await animator(result);
+        return canvas
     });
+
+    let buttons = await setButtons(canvas, elementList);
 });
 
-function setAnimation(canvas, id) {
+function setAnimation(canvas, id, elementList) {
     return new Promise(async (resolve, reject) => {
         await killall(canvas);
-        document.getElementById('drawing').style.animation = '';
+        elementList.drawing.style.animation = '';
         switch (id) {
             case 'home':
                 await illustrator(canvas, soccerPitch).then((result) => {animator(result);});
@@ -46,10 +39,9 @@ function setAnimation(canvas, id) {
         }
         resolve('done');
     })
-
 }
 
-function setButtons(canvas) {
+function setButtons(canvas, elementList) {
     return new Promise((resolve, reject) => {
         let buttons = document.getElementsByTagName("li");
         for (button of buttons) {
@@ -57,12 +49,12 @@ function setButtons(canvas) {
                 if (!event.target.classList.contains('active')) {
                     let oldActive = document.querySelectorAll('li.active'),
                         newActive = document.querySelectorAll('li.' + event.target.className),
-                        element = document.querySelector('.content').getElementsByClassName('active'),
-                        targetEl = document.querySelector('.content').getElementsByClassName(event.target.className),
+                        oldElement = elementList.content.getElementsByClassName('active'),
+                        targetEl = elementList.content.getElementsByClassName(event.target.className),
                         id = targetEl[0].className.split(' ').pop();
 
-                    await setAnimation(canvas, id);
-                    element[0].classList.replace('active','hidden');
+                    await setAnimation(canvas, id, elementList);
+                    oldElement[0].classList.replace('active','hidden');
                     targetEl[0].classList.replace('hidden','active');
 
                     for (let i = 0; i < oldActive.length; i++ ) {

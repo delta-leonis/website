@@ -1,246 +1,156 @@
-body, html {
+// Positioning
+html {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background: $background;
-  color: $inactive;
-  overflow-x: hidden;
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
-.container {
-  height: 100%;
-  flex: 1;
-  display: grid;
-  grid-template-columns: 7vw auto;
-  z-index: 1;
-  background: -moz-linear-gradient(left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-  background: -webkit-linear-gradient(left, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
-  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 );
-
-  .nav-sidebar {
+  body {
+    display: flex;
     height: 100%;
-    border-right: 1px solid $border-color;
-    grid-column: 1;
-    font-variant: small-caps;
-    font-size: 1.4em;
-    position: relative;
-    left: -10vw;
+    background: $background;
+    #site-container {
+      height: 100%;
+      z-index: 2;
+      overflow-x: hidden;
+      flex: 1;
+      display: grid;
+      grid-gap: 3%;
+      grid-template-columns: minmax(110px, 1fr) 6fr 5fr;
 
-    .hidden-desktop {
-      display: none;
-    }
+      #content {
+        margin-top: 55px;
+        p {margin: 2% 0}
+      }
+      #svg-container {
+        width: 90%;
+      }
 
-    .logo-text {
-      width: 50%;
-      margin: auto;
-    }
+      @media screen and (max-width: $break-large) and (min-width: 426px){
+        grid-template-columns: minmax(80px, 1fr) 11fr;
+        grid-auto-rows: auto;
+        grid-gap: 20px;
+        grid-template-areas:
+                'nav content'
+                'nav svg';
 
-    .desktop-nav {
-      padding-right: 10px;
-      ul {
-        li {
-          text-align: right;
-          cursor: pointer;
+        #main-nav {grid-area: nav}
+        #content {grid-area: content; margin-top: 20px}
+        #svg-container {grid-area: svg}
 
-          &:nth-child(even){
-            border-top: 1px solid $border-color;
-            border-bottom: 1px solid $border-color;
-          }
-          &:hover {
-            color: $secondary;
-          }
+      }
+      @media screen and (max-width: $break-small) {
+        grid-template-columns: minmax(250px,1fr);
+        grid-template-rows: 100px auto 1fr;
+        grid-gap: 10px;
+
+        #content {
+          margin-top: 0;
+          p {margin: 4% 0}
+        }
+        #svg-container {
+          display: flex;
+          justify-content: center;
+        }
+        #main-nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          img {height: 100%}
+          nav,li {display: inline-block}
+          nav {align-self: flex-end; min-width: 220px}
+          li:last-of-type {margin-right: 15px}
         }
       }
     }
-
-    @media screen and (max-width: $mobile) {
-      width: 42px;
-      .hidden-mobile {display: none;}
-      .hidden-desktop {display: block}
-      background: url('../assets/img/icons/logo_small.svg') no-repeat bottom ;
-      background-size: 42px ;
+    #particles-js {
+      z-index: 1;
+      width: 100vw;
+      height: 100%;
       position: fixed;
+      top: 0;
+      left: 0;
     }
   }
-  .content-container {
-    height: 95%;
-    grid-column: 2;
-    position: relative;
-    padding-left: 4%;
-    padding-top: 4%;
-    box-sizing: border-box;
-    display: flex;
+}
+// Style
+#site-container {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: $main;
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 40%);
 
-    .content {
-      width: 65%;
-      max-height: calc(100% - 38px);
-      opacity: 0;
+  #main-nav {
+    font-size: 1.3em;
+    font-variant: small-caps;
+    border-right: 1px solid $border-color;
+    animation: slideRight 0.4s forwards;
+    li {
+      border-bottom: 1px solid $border-color;
+      text-align: right;
+      padding-right: 10px;
+      cursor: pointer;
+      color: $inactive;
 
-      h1 {
-        font-size: 4em;
-        font-variant: small-caps;
-        color: $main;
-
-        span {
-          color: $secondary;
-        }
-        @media screen and (max-width: $mobile) {
-          line-height: 3rem;
-          padding-bottom: 5%;
-        }
-
+      &:last-of-type {
+        border-bottom: 0;
       }
-      p {
-        font-family: 'Cabin', sans-serif;
-        color: $main;
-        line-height: 1.5rem;
-        padding-top: 4%;
-
-        &:first-of-type {
-          padding-top: 1%;
-        }
+      &:hover {
+        color: $secondary;
+      }
+      @media screen and (max-width: $break-large) and (min-width: 426px) {
+        padding-right: 5px;
+      }
+    }
+    li.active {
+      color: $active;
+    }
+    @media screen and (max-width: $break-small) {
+      border-right: 0;
+      border-bottom: 1px solid $border-color;
+      animation: slideDown 0.4s forwards;
+      li {
+        border-bottom: 4px solid $border-color;
+        padding: 0 5px;
 
         &:last-of-type {
-          padding-bottom: 50px;
+          border-bottom: 4px solid $border-color;
         }
-      }
-
-      @media screen and (max-width: $mobile) {
-        width: 100%;
-        max-height: 85%;
-        padding-right: 5%;
-        padding-left: 2%;
-        padding-bottom: calc(33px - 7.5%);
-      }
-    }
-    a > img:first-of-type {
-      position: absolute;
-      right: 0;
-      top: 0;
-      border: 0;
-      opacity: 0;
-      z-index: 2;
-      animation: show 0.5s ease-in 4s forwards;
-      @media screen and (max-width: $mobile) {
-        width: 20%;
-      }
-    }
-    #drawing {
-      width: 40%;
-      @media screen and (max-width: $mobile) {
-        display: none;
-      }
-    }
-
-  }
-  .nav-footer {
-    width: calc(100% - 42px);
-    background: $background;
-    display: none;
-    border-top: 1px solid $border-color;
-    position: fixed;
-    bottom: -43px;
-    right: 0;
-
-    @media screen and (max-width: $mobile) {
-      display: block;
-      height: 32px;
-      ul {
-        height: 100%;
-        max-width:70%;
-        min-width: 65%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        font-variant: small-caps;
-        font-size: 1.5em;
-        li{
-          display: inline;
-          cursor: pointer;
-          &:hover {
-            color: red;
-          }
+        &:hover {
+          border-color: $secondary;
         }
       }
     }
   }
-  .active {
-    color: $active;
-    display: block;
+  #content {
+    .hidden {display: none}
+    .active {display: block}
+
+    h1 {
+      font-size: 4em;
+      font-variant: small-caps;
+      color: $main;
+      line-height: 3rem;
+      animation: show 1s forwards;
+
+      span {
+        color: $secondary;
+        animation: show 1.2s forwards;
+      }
+    }
+    p {
+      animation: show 0.9s forwards;
+      font-family: 'Cabin', sans-serif;
+      color: $main;
+      line-height: 1.4rem;
+    }
+    @media screen and (max-width: $break-large) and (min-width: 426px) {
+      padding-right: 10px;
+    }
+
+    @media screen and (max-width: $break-small) {
+      padding: 0 15px;
+      h1 {font-size: 3rem}
+    }
   }
-  .hidden {
-    display: none;
-  }
 }
-
-#loading {
-  width: 100vw;
-  height: 100vh;
-  background: $main;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  overflow: hidden;
-
-  .divider {
-    height: 100vh;
-    width: 0;
-    background: $background;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    animation: divider 0.75s forwards;
-  }
-}
-
-#particles-js {
-
-  width: 100vw;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  opacity: 0;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  background: none;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: rgba(90, 90, 90, 0.26);
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #292929;
-}
-@keyframes divider {
-  100% {width: 100vw;}
-}
-
-@keyframes slideRight {
-  100% {left: 0}
-}
-@keyframes slideUp {
-  100% {bottom: 0}
-}
-
-@keyframes tilt {
-  100% { transform: rotate3d(-5, 5, 0, 50deg); }
-}
-@keyframes show {
-  100% { opacity: 1 }
-}
-
+// keyframes
+@keyframes tilt {100% { transform: rotate3d(-5, 5, 0, 50deg)}}
+@keyframes slideRight {0% {transform: translateX(-100%)}}
+@keyframes slideDown {0% {transform: translateY(-100%)}}
+@keyframes show {0% {opacity: 0;}}

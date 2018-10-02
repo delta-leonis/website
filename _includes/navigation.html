@@ -1,8 +1,7 @@
-<div class="nav-sidebar">
+<div id="main-nav">
     <img class="hidden-mobile" src="{{ "/assets/img/icons/logo_big.svg" | relative_url }}" alt="">
-    <img class="hidden-desktop logo-text" src="{{ "/assets/img/icons/logo_text.png" | relative_url }}" alt="">
     <nav class="desktop-nav">
-        <ul class="hidden-mobile">
+        <ul>
             {% assign doclist = site.page_collection | sort: 'position'  %}
             {% for item in doclist %}
             {% if item.title == 'home' %}
