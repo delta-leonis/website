@@ -2,6 +2,11 @@
 <html lang="en">
 {% include head.html %}
 <body>
-    {{content}}
+    <div id="site-container">
+        {% include navigation.html %}
+        {% include content.html %}
+        {% include svg-container.html%}
+    </div>
+    <div id="particles-js"></div>
 </body>
 </html>

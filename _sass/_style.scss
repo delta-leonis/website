@@ -1,3 +1,165 @@
-body {
-  background: #c21d22;
+// Positioning
+html {
+  height: 100%;
+  body {
+    display: flex;
+    height: 100%;
+    background: $background;
+    #site-container {
+      height: 100%;
+      z-index: 2;
+      overflow-x: hidden;
+      flex: 1;
+      display: grid;
+      grid-gap: 3%;
+      grid-template-columns: minmax(110px, 1fr) 6fr 5fr;
+
+      #content {
+        margin-top: 55px;
+        p {margin: 2% 0}
+      }
+      #svg-container {
+        width: 90%;
+      }
+
+      @media screen and (max-width: $break-large) and (min-width: 426px){
+        grid-template-columns: minmax(80px, 1fr) 11fr;
+        grid-auto-rows: auto;
+        grid-gap: 20px;
+        grid-template-areas:
+                'nav content'
+                'nav svg';
+
+        #main-nav {grid-area: nav}
+        #content {grid-area: content; margin-top: 20px}
+        #svg-container {grid-area: svg}
+
+      }
+      @media screen and (max-width: $break-small) {
+        grid-template-columns: minmax(250px,1fr);
+        grid-template-rows: 100px auto 1fr;
+        grid-gap: 10px;
+
+        #content {
+          margin-top: 0;
+          p {margin: 4% 0}
+        }
+        #svg-container {
+          display: flex;
+          justify-content: center;
+        }
+        #main-nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          img {height: 100%}
+          nav,li {display: inline-block}
+          nav {align-self: flex-end; min-width: 220px}
+          li:last-of-type {margin-right: 15px}
+        }
+      }
+    }
+    #particles-js {
+      z-index: 1;
+      width: 100vw;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  }
 }
+// Style
+#site-container {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: $main;
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 40%);
+
+  #main-nav {
+    font-size: 1.3em;
+    font-variant: small-caps;
+    border-right: 1px solid $border-color;
+    animation: slideRight 0.4s forwards;
+    li {
+      border-bottom: 1px solid $border-color;
+      text-align: right;
+      padding-right: 10px;
+      cursor: pointer;
+      color: $inactive;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+      &:hover {
+        color: $secondary;
+      }
+      @media screen and (max-width: $break-large) and (min-width: 426px) {
+        padding-right: 5px;
+      }
+    }
+    li.active {
+      color: $active;
+    }
+    @media screen and (max-width: $break-small) {
+      border-right: 0;
+      border-bottom: 1px solid $border-color;
+      animation: slideDown 0.4s forwards;
+      li {
+        border-bottom: 4px solid $border-color;
+        padding: 0 5px;
+
+        &:last-of-type {
+          border-bottom: 4px solid $border-color;
+        }
+        &:hover {
+          border-color: $secondary;
+        }
+      }
+    }
+  }
+  #content {
+    .hidden {display: none}
+    .active {display: block}
+
+    h1 {
+      font-size: 4em;
+      font-variant: small-caps;
+      color: $main;
+      line-height: 3rem;
+      animation: show 1s forwards;
+
+      span {
+        color: $secondary;
+        animation: show 1.2s forwards;
+      }
+    }
+    p {
+      animation: show 0.9s forwards;
+      font-family: 'Cabin', sans-serif;
+      color: $main;
+      line-height: 1.6rem;
+      font-size: 1.2em;
+    }
+    @media screen and (max-width: $break-large) and (min-width: 426px) {
+      padding-right: 10px;
+      P{
+        font-size: 1.1em;
+        line-height: 1.2rem;
+      }
+    }
+
+    @media screen and (max-width: $break-small) {
+      padding: 0 15px;
+      h1 {font-size: 3rem}
+      P{
+        font-size: 1em;
+        line-height: 1.2rem;
+      }
+    }
+  }
+}
+// keyframes
+@keyframes tilt {100% { transform: rotate3d(-5, 5, 0, 50deg)}}
+@keyframes slideRight {0% {transform: translateX(-100%)}}
+@keyframes slideDown {0% {transform: translateY(-100%)}}
+@keyframes show {0% {opacity: 0;}}
