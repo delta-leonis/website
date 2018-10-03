@@ -93,8 +93,6 @@ function illustrator(canvas, blueprint){
 
     resolve(returnObj)
 
-  }).catch((result) => {
-    console.log('error: ' + result);
   })
 }
 /**
@@ -303,9 +301,6 @@ function animateGraph(target) {
     let vLine = new Vivus(lines.node.id, {type: 'delayed', duration: 75, animTimingFunction: Vivus.EASE_OUT}, () => {
       for (line of lines.children()) {
         line.animate(getRandomNum(1000,3000),'<>', 500).stroke({width: 2, color: '#333333'}).loop(true,true);
-      }
-      for (path of paths.children()) {
-        //path.animate(1000,'<>', 500).stroke({width: 2, color: '#2e3134'}).loop(true,true);
       }
       resolve(target);
     });
