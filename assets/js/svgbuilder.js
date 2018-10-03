@@ -297,8 +297,8 @@ function animateGraph(target) {
   return new Promise((resolve,reject) => {
     let lines = target[Object.keys(target)[0]];
     let paths = target[Object.keys(target)[1]];
-    let vPath = new Vivus(paths.node.id, {type: 'sync', duration: 100, animTimingFunction: Vivus.EASE_OUT});
-    let vLine = new Vivus(lines.node.id, {type: 'delayed', duration: 75, animTimingFunction: Vivus.EASE_OUT}, () => {
+    let vPath = new Vivus(paths.node.id, {type: 'sync', duration: 100, start: 'autostart', animTimingFunction: Vivus.EASE_OUT});
+    let vLine = new Vivus(lines.node.id, {type: 'delayed', duration: 75, start: 'autostart', animTimingFunction: Vivus.EASE_OUT}, () => {
       for (line of lines.children()) {
         line.animate(getRandomNum(1000,3000),'<>', 500).stroke({width: 2, color: '#333333'}).loop(true,true);
       }
