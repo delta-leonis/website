@@ -16,13 +16,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         return canvas
     });
 
-    let buttons = await setButtons(canvas, elementList);
+    let buttons = setButtons(canvas, elementList);
 });
 
 function setAnimation(canvas, id, elementList) {
     return new Promise(async (resolve, reject) => {
         await killall(canvas);
-        elementList.drawing.style.animation = '';
         switch (id) {
             case 'home':
                 await illustrator(canvas, soccerPitch).then((result) => {animator(result);});
@@ -42,32 +41,29 @@ function setAnimation(canvas, id, elementList) {
 }
 
 function setButtons(canvas, elementList) {
-    return new Promise((resolve, reject) => {
-        let buttons = document.getElementsByTagName("li");
-        for (button of buttons) {
-            button.addEventListener('click', async (event) => {
-                if (!event.target.classList.contains('active')) {
-                    let oldActive = document.querySelectorAll('li.active'),
-                        newActive = document.querySelectorAll('li.' + event.target.className),
-                        oldElement = elementList.content.getElementsByClassName('active'),
-                        targetEl = elementList.content.getElementsByClassName(event.target.className),
-                        id = targetEl[0].className.split(' ').pop();
+    let buttons = document.getElementsByTagName("li");
+    for (button of buttons) {
+        button.addEventListener('click', async (event) => {
+            if (!event.target.classList.contains('active')) {
+                let oldActive = document.querySelectorAll('li.active'),
+                    newActive = document.querySelectorAll('li.' + event.target.className),
+                    oldElement = elementList.content.getElementsByClassName('active'),
+                    targetEl = elementList.content.getElementsByClassName(event.target.className),
+                    id = targetEl[0].className.split(' ').pop();
 
-                    await setAnimation(canvas, id, elementList);
-                    oldElement[0].classList.replace('active','hidden');
-                    targetEl[0].classList.replace('hidden','active');
+                await setAnimation(canvas, id, elementList);
+                oldElement[0].classList.replace('active','hidden');
+                targetEl[0].classList.replace('hidden','active');
 
-                    for (let i = 0; i < oldActive.length; i++ ) {
-                        oldActive[i].classList.remove('active');
-                        newActive[i].classList.add('active');
-                    }
+                for (let i = 0; i < oldActive.length; i++ ) {
+                    oldActive[i].classList.remove('active');
+                    newActive[i].classList.add('active');
                 }
+            }
 
-            });
-        }
-        resolve(buttons);
-    })
-
+        });
+    }
+    return buttons
 }
 
 function killall(draw){
