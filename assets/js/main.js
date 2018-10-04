@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let buttons = setButtons(canvas, elementList);
 });
 
-function setAnimation(canvas, id, elementList) {
+function setAnimation(canvas, id) {
     return new Promise(async (resolve, reject) => {
         await killall(canvas);
         switch (id) {
@@ -33,7 +33,7 @@ function setAnimation(canvas, id, elementList) {
                 await illustrator(canvas, graph).then((result) => {animator(result);});
                 break;
             default:
-                console.log('Unknown animation id');
+                reject('Unknown animation id');
 
         }
         resolve('done');
@@ -42,7 +42,7 @@ function setAnimation(canvas, id, elementList) {
 
 function setButtons(canvas, elementList) {
     let buttons = document.getElementsByTagName("li");
-    for (button of buttons) {
+    for (let button of buttons) {
         button.addEventListener('click', async (event) => {
             if (!event.target.classList.contains('active')) {
                 let oldActive = document.querySelectorAll('li.active'),
@@ -51,7 +51,7 @@ function setButtons(canvas, elementList) {
                     targetEl = elementList.content.getElementsByClassName(event.target.className),
                     id = targetEl[0].className.split(' ').pop();
 
-                await setAnimation(canvas, id, elementList);
+                await setAnimation(canvas, id);
                 oldElement[0].classList.replace('active','hidden');
                 targetEl[0].classList.replace('hidden','active');
 
@@ -68,7 +68,7 @@ function setButtons(canvas, elementList) {
 
 function killall(draw){
     return new Promise(((resolve, reject) => {
-        draw.each(function(i, children) {
+        draw.each(function() {
             this.removeClass('*');
             this.off();
             this.stop();
