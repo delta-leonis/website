@@ -6,11 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   window.onpopstate = () => selectPage(canvas, window.location.hash);
-  selectPage(canvas, window.location.hash || "#home");
+  selectPage(canvas, window.location.hash);
 });
 
 function selectPage(canvas, hash) {
   id = hash.substring(1);
+
+  if(container = document.getElementById(id)) {
+    if(container.classList.contains('active')) {
+      return;
+    }
+  } else {
+    id = 'home';
+  }
 
   // remove existing active classes and hide all
   for(element of document.querySelectorAll(".active")) {
@@ -24,7 +32,7 @@ function selectPage(canvas, hash) {
   content = document.getElementById(id)
   content.classList.remove("hidden");
   content.classList.add("active");
-  document.querySelector('a[href="' + hash + '"]').parentElement.classList.add("active");
+  document.querySelector('a[href="#' + id + '"]').parentElement.classList.add("active");
 
   clearCanvas(canvas);
   animator(illustrator(canvas, window[content.dataset.animation]));
