@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+       - image: circleci/ruby:2.4.1-node-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: gem install jekyll
+
+      - run: bundle exec jekyll build
+
+      # deploy if green
+      - deploy:
+          name: Deploy site
+          command: .circleci/deploy-ghpages.sh
