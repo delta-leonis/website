@@ -1,5 +1,3 @@
-
-
 const starSystem = {
   opt: {
     vivus: false
