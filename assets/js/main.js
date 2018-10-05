@@ -13,8 +13,12 @@ function selectPage(canvas, hash) {
   id = hash.substring(1);
 
   // remove existing active classes and hide all
-  document.querySelectorAll(".active").forEach(element => element.classList.remove("active"));
-  document.querySelectorAll("#content div").forEach(element => element.classList.add("hidden"));
+  for(element of document.querySelectorAll(".active")) {
+    element.classList.remove("active");
+  }
+  for(element of document.querySelectorAll("#content div")){
+    element.classList.add("hidden");
+  }
 
   // add .active to the new active item and content
   content = document.getElementById(id)
