@@ -1,23 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
   canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
 
-  particlesJS.load("particles-js", "assets/js/vendor/particlesjs-config.json", () =>
-      document.getElementById("particles-js").style.animation = "show 3s forwards"
-  );
+  particlesJS.load("particles-js", "assets/js/vendor/particlesjs-config.json", function() {
+    document.getElementById("particles-js").style.animation = "show 3s forwards"
+  });
 
-  window.onpopstate = () => selectPage(canvas, window.location.hash);
+  window.onpopstate = function() { selectPage(canvas, window.location.hash) };
   selectPage(canvas, window.location.hash || "#home");
-});
+})
 
 function selectPage(canvas, hash) {
   id = hash.substring(1);
 
   // remove existing active classes and hide all
-  for(element of document.querySelectorAll(".active")) {
-    element.classList.remove("active");
+  children = document.querySelectorAll(".active");
+  for(i = 0; i < children.length; i++) {
+    children[i].classList.remove("active");
   }
-  for(element of document.querySelectorAll("#content div")){
-    element.classList.add("hidden");
+  children = document.querySelectorAll("#content div");
+  for(i = 0; i < children.length; i++) {
+    children[i].classList.add("hidden");
   }
 
   // add .active to the new active item and content
