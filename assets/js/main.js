@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             drawing   : document.getElementById('svg-container')
         };
 
-    particlesJS.load('particles-js', 'assets/js/vendor/particlesjs-config.json', () => {
+    particlesJS.load('particles-js', 'assets/js/particlesjs-config.json', () => {
         elementList.particle.style.animation = 'show 3s forwards'
     });
 
