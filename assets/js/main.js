@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
 
   particlesJS.load("particles-js", "assets/js/vendor/particlesjs-config.json", () =>
