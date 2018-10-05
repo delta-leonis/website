@@ -1,80 +1,47 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    let canvas = SVG('svg-container').size('90%', '90%').viewbox(0,0,640,480),
-        elementList = {
-            particle  : document.getElementById('particles-js'),
-            content   : document.getElementById('content'),
-            navigation: document.getElementById('main-nav'),
-            drawing   : document.getElementById('svg-container')
-        };
+  canvas = SVG('svg-container').size('90%', '90%').viewbox(0,0,640,480);
 
-    particlesJS.load('particles-js', 'assets/js/vendor/particlesjs-config.json', () => {
-        elementList.particle.style.animation = 'show 3s forwards'
-    });
+  particlesJS.load('particles-js', 'assets/js/vendor/particlesjs-config.json', () => {
+      document.getElementById('particles-js').style.animation = 'show 3s forwards'
+  });
 
-    let svgAnimations = await illustrator(canvas, soccerPitch).then(async (result) => {
-        let animated = await animator(result);
-        return canvas
-    });
-
-    let buttons = setButtons(canvas, elementList);
+  window.onpopstate = () => selectPage(canvas, window.location.hash);
+  selectPage(canvas, window.location.hash || '#home');
 });
 
-function setAnimation(canvas, id) {
-    return new Promise(async (resolve, reject) => {
-        await killall(canvas);
-        switch (id) {
-            case 'home':
-                await illustrator(canvas, soccerPitch).then((result) => {animator(result);});
-                break;
-            case 'zosma':
-                await illustrator(canvas, starSystem).then((result) => {animator(result);});
-                break;
-            case 'algieba':
-                await illustrator(canvas, graph).then((result) => {animator(result);});
-                break;
-            default:
-                reject('Unknown animation id');
+function selectPage(canvas, hash) {
+id = hash.substring(1);
 
-        }
-        resolve('done');
-    })
+// remove existing active classes and hide all
+document.querySelectorAll('.active').forEach(element => element.classList.remove('active'));
+document.querySelectorAll('#content div').forEach(element => element.classList.add('hidden'));
+
+// add .active to the new active item and content
+document.getElementById(id).classList.remove('hidden');
+document.getElementById(id).classList.add('active');
+document.querySelector('a[href="' + hash + '"]').parentElement.classList.add('active');
+
+// select animation if available
+clearCanvas(canvas)
+if(animation = getAnimation(id)) {
+  animator(illustrator(canvas, animation));
+}
 }
 
-function setButtons(canvas, elementList) {
-    let buttons = document.getElementsByTagName("li");
-    for (let button of buttons) {
-        button.addEventListener('click', async (event) => {
-            if (!event.target.classList.contains('active')) {
-                let oldActive = document.querySelectorAll('li.active'),
-                    newActive = document.querySelectorAll('li.' + event.target.className),
-                    oldElement = elementList.content.getElementsByClassName('active'),
-                    targetEl = elementList.content.getElementsByClassName(event.target.className),
-                    id = targetEl[0].className.split(' ').pop();
-
-                await setAnimation(canvas, id);
-                oldElement[0].classList.replace('active','hidden');
-                targetEl[0].classList.replace('hidden','active');
-
-                for (let i = 0; i < oldActive.length; i++ ) {
-                    oldActive[i].classList.remove('active');
-                    newActive[i].classList.add('active');
-                }
-            }
-
-        });
-    }
-    return buttons
+function getAnimation(id) {
+return {
+  home: soccerPitch,
+  zosma: starSystem,
+  algieba: graph,
+}[id];
 }
 
-function killall(draw){
-    return new Promise(((resolve, reject) => {
-        draw.each(function() {
-            this.removeClass('*');
-            this.off();
-            this.stop();
-        }, true);
-        draw.ungroup();
-        draw.clear();
-        resolve('done');
-    }))
+function clearCanvas(draw){
+  draw.each(function() {
+      this.removeClass('*');
+      this.off();
+      this.stop();
+  }, true);
+  draw.ungroup();
+  draw.clear();
 }
