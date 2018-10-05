@@ -1,4 +1,6 @@
-var starSystem = {
+
+
+const starSystem = {
   opt: {
     vivus: false
   },
@@ -34,8 +36,7 @@ var starSystem = {
 
   }
 };
-
-var graph = {
+const graph = {
   opt: {
     vivus: false
   },
@@ -120,7 +121,7 @@ var graph = {
 
 };
 
-var soccerPitch = {
+const soccerPitch = {
   opt: {
     vivus: true
   },
