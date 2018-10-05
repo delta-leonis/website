@@ -1,4 +1,4 @@
-function illustrator(canvas, blueprint){
+function illustrator(canvas, blueprint = []){
   let shapeRef = [],
       animationRef = {};
 
@@ -74,7 +74,7 @@ function illustrator(canvas, blueprint){
       canvas: canvas,
       shape: shapeRef,
       animation: animationRef,
-      vivus: blueprint.opt.vivus || 'none'
+      vivus: blueprint.opt && blueprint.opt.vivus || 'none'
   };
 }
 
