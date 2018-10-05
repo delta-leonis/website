@@ -1,7 +1,7 @@
 # Delta Leonis website
 
 ### Getting started
-The site is build using [Jekyll](https://jekyllrb.com/) and hosted [here](http://delta-leonis.github.io/website] on [GitHub Pages](https://pages.github.com/).
+The site is build using [Jekyll](https://jekyllrb.com/) and hosted [here](http://delta-leonis.github.io/website) on [GitHub Pages](https://pages.github.com/).
 In order to develop using Jekyll make sure [ruby is installed](https://www.ruby-lang.org/en/documentation/installation/) on your system.
 
 Run the following commands
