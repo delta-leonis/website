@@ -28,7 +28,7 @@ When changing files jekyll will automatically rebuild the files.
 │   └── ...
 ├── .circleci        ; CI configuration and scripts
 │   └── ...
+├── _site            ; build destination
+│   └── ...
 └── index.md         ; entry point of the website
-```
-
-Note that the site will be generated in `_site`.
+``
