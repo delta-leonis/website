@@ -12,7 +12,7 @@ exports.css = (cb) => {
   gulp.src('_css/**/*.?(s)css')
     .pipe(sourcemaps.init())
     .pipe(autoprefixer())
-    .pipe(concat('all.scss'))
+    .pipe(concat('stylesheet.css'))
     .pipe(sass())
     .pipe(cleanCSS())
     .pipe(sourcemaps.write('.'))
@@ -22,6 +22,9 @@ exports.css = (cb) => {
 
 exports.js = (cb) => {
   pump([gulp.src([
+          'node_modules/particles.js/particles.js',
+          'node_modules/vivus/dist/vivus.min.js',
+          'node_modules/svg.js/dist/svg.min.js',
           'node_modules/svg.easing.js/dist/svg.easing.min.js',
           'node_modules/babel-polyfill/dist/polyfill.min.js',
           '_js/svgblueprint.js',
