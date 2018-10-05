@@ -5,68 +5,16 @@ function illustrator(canvas, blueprint = []){
   for (let element in blueprint) {
       if (element !== 'opt') {
           for (let shape in blueprint[element]) {
-              switch(shape) {
-                  case 'lines':
-                      let lineGroup = drawLine(canvas, blueprint[element][shape]);
-                      if (blueprint[element][shape].opt.animation !== 'none') {
-                          let animationName = blueprint[element][shape].opt.animation;
-                          if (animationRef.hasOwnProperty(animationName)) {
-                              animationRef[animationName] = pack(animationRef[animationName], lineGroup);
-                          } else {
-                              animationRef[animationName] = lineGroup;
-                          }
-                      }
-                      shapeRef.push({lineGroup});
-                      break;
-                  case 'polygons':
-                      let polyGroup = drawPoly(canvas, blueprint[element][shape]);
-                      if (blueprint[element][shape].opt.animation !== 'none') {
-                          let animationName = blueprint[element][shape].opt.animation;
-                          if (animationRef.hasOwnProperty(animationName)) {
-                              animationRef[animationName] = pack(animationRef[animationName], polyGroup);
-                          } else {
-                              animationRef[animationName] = polyGroup;
-                          }
-                      }
-                      shapeRef.push({polyGroup});
-                      break;
-                  case 'ellipses':
-                      let ellipseGroup = drawEllipse(canvas, blueprint[element][shape]);
-                      if (blueprint[element][shape].opt.animation !== 'none') {
-                          let animationName = blueprint[element][shape].opt.animation;
-                          if (animationRef.hasOwnProperty(animationName)) {
-                              animationRef[animationName] = pack(animationRef[animationName], ellipseGroup);
-                          } else {
-                              animationRef[animationName] = ellipseGroup;
-                          }
-                      }
-                      shapeRef.push({ellipseGroup});
-                      break;
-                  case 'paths':
-                      let pathGroup = drawPath(canvas, blueprint[element][shape]);
-                      if (blueprint[element][shape].opt.animation !== 'none') {
-                          let animationName = blueprint[element][shape].opt.animation;
-                          if (animationRef.hasOwnProperty(animationName)) {
-                              animationRef[animationName] = pack(animationRef[animationName], pathGroup);
-                          } else {
-                              animationRef[animationName] = pathGroup;
-                          }
-                      }
-                      shapeRef.push({pathGroup});
-                      break;
-                  case 'circles':
-                      let circleGroup = drawCircle(canvas, blueprint[element][shape]);
-                      if (blueprint[element][shape].opt.animation !== 'none') {
-                          let animationName = blueprint[element][shape].opt.animation;
-                          if (animationRef.hasOwnProperty(animationName)) {
-                              animationRef[animationName] = pack(animationRef[animationName], circleGroup);
-                          } else {
-                              animationRef[animationName] = circleGroup;
-                          }
-                      }
-                      shapeRef.push({circleGroup});
-                      break;
+              let group = drawShapes(canvas, shape, blueprint[element][shape]);
+              if (blueprint[element][shape].opt.animation !== 'none') {
+                  let animationName = blueprint[element][shape].opt.animation;
+                  if (animationRef.hasOwnProperty(animationName)) {
+                      animationRef[animationName] = pack(animationRef[animationName], group);
+                  } else {
+                      animationRef[animationName] = group;
+                  }
               }
+              shapeRef.push({group});
           }
       }
   }
@@ -115,53 +63,27 @@ function animator(blueprint) {
   return {animationRef,blueprint};
 }
 
-function drawLine(canvas, lines) {
-  let lineGroup = canvas.group();
-  for (let line of lines.data) {
-      let lineRef = canvas.line(line.x,line.y,line.x1,line.y1).stroke(lines.opt.stroke);
-      lineGroup.add(lineRef);
-  }
-  return lineGroup
+function drawShapes(canvas, shapeName, { data: shapes, opt}) {
+  return shapes.reduce((group, shape) => group.add(drawFunctions[shapeName](canvas, shape, opt)), canvas.group());
 }
 
-function drawPoly(canvas, polys) {
-  let polyGroup = canvas.group();
-  for (let poly of polys.data) {
-      let polyRef = canvas.polygon(poly).stroke(polys.opt.stroke || 'none').fill(polys.opt.fill || 'none');
-      polyGroup.add(polyRef);
+const drawFunctions = {
+  lines: (canvas, line, { stroke }) =>
+    canvas.line(line.x,line.y,line.x1,line.y1).stroke(stroke),
+  polygons: (canvas, poly, { stroke = 'none', fill = 'none' }) =>
+    canvas.polygon(poly).stroke(stroke).fill(fill),
+  ellipses: (canvas, ellipse, {stroke, fill}) =>
+    canvas.ellipse().radius(ellipse.rx,ellipse.ry).center(ellipse.cx,ellipse.cy).stroke(stroke).fill(fill),
+  paths: (canvas, path, { stroke = 'none', fill = 'none'}) =>
+    canvas.path(path).stroke(stroke).fill(fill),
+  circles: (canvas, circle, { stroke = 'none', fill = 'none' }) => {
+    circleRef = canvas.circle(circle.r).stroke(stroke).fill(fill);
+    if (circle.hasOwnProperty('cx')) {
+        circleRef.center(circle.cx,circle.cy);
+    }
+    return circleRef;
   }
-  return polyGroup
-}
-
-function drawEllipse(canvas, ellipses) {
-  let ellipseGroup = canvas.group();
-  for (let ellipse of ellipses.data) {
-      let ellipseRef = canvas.ellipse().radius(ellipse.rx,ellipse.ry).center(ellipse.cx,ellipse.cy).stroke(ellipses.opt.stroke).fill(ellipses.opt.fill);
-      ellipseGroup.add(ellipseRef);
-  }
-  return ellipseGroup
-}
-
-function drawPath(canvas, paths) {
-  let pathGroup = canvas.group();
-  for (let path of paths.data) {
-      let pathRef = canvas.path(path).stroke(paths.opt.stroke || 'none').fill(paths.opt.fill || 'none');
-      pathGroup.add(pathRef)
-  }
-  return pathGroup
-}
-
-function drawCircle(canvas, circles) {
-  let circleGroup = canvas.group();
-  for (let circle of circles.data) {
-      let circleRef = canvas.circle(circle.r).stroke(circles.opt.stroke || 'none').fill(circles.opt.fill || 'none');
-      circleGroup.add(circleRef);
-      if (circle.hasOwnProperty('cx')) {
-          circleRef.center(circle.cx,circle.cy);
-      }
-  }
-  return circleGroup
-}
+};
 
 function pack(oldRef, newRef) {
   return {[oldRef.node.id]:oldRef, [newRef.node.id]:newRef}
