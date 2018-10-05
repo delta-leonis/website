@@ -1,6 +1,7 @@
 ---
 title: zosma
 description: something
+animation: starSystem
 layout: default
 position: 1
 ---

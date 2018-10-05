@@ -1,6 +1,6 @@
 <div id="content">
     {% for item in doclist %}
-        <div id="{{item.title}}">
+        <div id="{{item.title}}" data-animation="{{item.animation}}">
             <h1>{{item.description}} <span>{{item.title}}</span></h1>
             {{item.content}}
         </div>

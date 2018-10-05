@@ -1,6 +1,7 @@
 ---
 title: home
 description: welcome
+animation: soccerPitch
 layout: default
 position: 0
 ---
