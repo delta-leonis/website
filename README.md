@@ -10,7 +10,7 @@ gem install jekyll
 jekyll serve
 # => Now browse to http://localhost:4000/website
 ```
-When changing files jekyll will automatically rebuild the files.
+When changing files jekyll will automatically rebuild the files. If you install a [livereload](http://livereload.com/extensions/)-plugin for your browser ([firefox](https://addons.mozilla.org/en-US/firefox/addon/livereload/), [chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei), [safari](download.livereload.com/2.1.0/LiveReload-2.1.0.safariextz)) your browser can autoreload if you run `jekyll serve` with the `--livereload` flag.
 
 ## Directory structure
 ```shell
