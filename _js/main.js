@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             drawing   : document.getElementById('svg-container')
         };
 
-    particlesJS.load('particles-js', 'assets/particlesjs-config.json', () => {
-        elementList.particle.style.animation = 'show 3s forwards'
-    });
+    // particlesJS.load('particles-js', 'assets/particlesjs-config.json', () => {
+    //     elementList.particle.style.animation = 'show 3s forwards'
+    // });
 
     let svgAnimations = await illustrator(canvas, soccerPitch).then(async (result) => {
         let animated = await animator(result);

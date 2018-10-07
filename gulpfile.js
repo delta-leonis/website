@@ -9,31 +9,30 @@ const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 
 exports.css = (cb) => {
-  gulp.src('_css/**/*.?(s)css')
-    .pipe(sourcemaps.init())
-    .pipe(autoprefixer())
-    .pipe(concat('stylesheet.css'))
-    .pipe(sass())
-    .pipe(cleanCSS())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist'))
-  cb();
+  pump([gulp.src('_css/**/*.?(s)css'),
+        sourcemaps.init(),
+        autoprefixer(),
+        concat('stylesheet.css'),
+        sass(),
+        cleanCSS(),
+        sourcemaps.write('.'),
+        gulp.dest('dist')], cb);
 };
 
 exports.js = (cb) => {
   pump([gulp.src([
-          'node_modules/particles.js/particles.js',
-          'node_modules/vivus/dist/vivus.min.js',
-          'node_modules/svg.js/dist/svg.min.js',
-          'node_modules/svg.easing.js/dist/svg.easing.min.js',
-          'node_modules/babel-polyfill/dist/polyfill.min.js',
+          'node_modules/babel-polyfill/dist/polyfill.js',
+          // 'node_modules/particles.js/particles.js',
+          'node_modules/svg.js/dist/svg.js',
+          'node_modules/svg.easing.js/dist/svg.easing.js',
+          'node_modules/vivus/dist/vivus.js',
           '_js/svgblueprint.js',
           '_js/svgbuilder.js',
           '_js/main.js'
         ]),
         sourcemaps.init(),
-        concat('javascript.js'),
         babel({presets: ['@babel/preset-env']}),
+        concat('javascript.js'),
         uglify(),
         sourcemaps.write('.'),
         gulp.dest('dist')], cb);
