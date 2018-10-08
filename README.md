@@ -32,3 +32,6 @@ When changing files jekyll will automatically rebuild the files. If you install 
 │   └── ...
 └── index.md         ; entry point of the website
 ``
+
+## Deployment
+Run `.circleci/deploy-ghpages.sh` in oder to build the site and deploy it to `http://delta-leonis.github.io/website`. Make sure you have Jekyll setup.
