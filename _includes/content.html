@@ -1,15 +1,8 @@
 <div id="content">
     {% for item in doclist %}
-        {% if item.title == 'home' %}
-            <div class="active {{item.title}}">
-                <h1>{{item.description}} <span>{{item.title}}</span></h1>
-                {{item.content}}
-            </div>
-        {% else %}
-            <div class="hidden {{item.title}}">
-                <h1>{{item.description}} <span>{{item.title}}</span></h1>
-                {{item.content}}
-            </div>
-        {% endif %}
+        <div id="{{item.title}}" data-animation="{{item.animation}}">
+            <h1>{{item.description}} <span>{{item.title}}</span></h1>
+            {{item.content}}
+        </div>
     {% endfor %}
 </div>

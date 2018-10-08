@@ -4,11 +4,7 @@
         <ul>
             {% assign doclist = site.page_collection | sort: 'position'  %}
             {% for item in doclist %}
-            {% if item.title == 'home' %}
-                <li class="active {{item.title}}">{{item.title}}</li>
-            {% else %}
-                <li class="{{item.title}}">{{item.title}}</li>
-            {% endif %}
+                <li class="{{item.title}}"><a href="#{{item.title}}">{{item.title}}</a></li>
             {% endfor %}
         </ul>
     </nav>

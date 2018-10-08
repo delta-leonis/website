@@ -1,6 +1,7 @@
 ---
 title: algieba
 description: something
+animation: graph
 layout: default
 position: 2
 ---

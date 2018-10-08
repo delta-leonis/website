@@ -15,8 +15,8 @@ html {
       grid-template-columns: minmax(110px, 1fr) 6fr 5fr;
 
       #content {
-        margin-top: 55px;
         p {margin: 2% 0}
+        & > div { padding-top: 55px;}
       }
       #svg-container {
         width: 90%;
@@ -31,7 +31,12 @@ html {
                 'nav svg';
 
         #main-nav {grid-area: nav}
-        #content {grid-area: content; margin-top: 20px}
+        #content {
+          grid-area: content;
+          & > div {
+            padding-top: 20px
+          }
+        }
         #svg-container {grid-area: svg}
 
       }
@@ -41,7 +46,7 @@ html {
         grid-gap: 10px;
 
         #content {
-          margin-top: 0;
+          padding-top: 0;
           p {margin: 4% 0}
         }
         #svg-container {
