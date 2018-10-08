@@ -18,8 +18,9 @@ jekyll build
 mkdir gh-pages-branch
 cd gh-pages-branch
 
-# now lets setup a new repo so we can update the gh-pages branch
-if [ "$1" = "--ci"]; then
+# Setup github if running on CI
+if [[ ! -z "$CI" ]]; then
+  echo "Running on CI; setting up github config"
   git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
   git config --global user.name "$GH_NAME" > /dev/null 2>&1
 fi
