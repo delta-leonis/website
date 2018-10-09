@@ -1,6 +1,8 @@
 require('svg.js');
 require('svg.easing.js');
-require('vivus');
+const Vivus = require('vivus');
+
+export { illustrator, animator };
 
 function illustrator(canvas, blueprint = []) {
   let shapeRef = [],
@@ -81,7 +83,7 @@ const drawFunctions = {
   paths: (canvas, path, {stroke = "none", fill = "none"}) =>
     canvas.path(path).stroke(stroke).fill(fill),
   circles: (canvas, circle, {stroke = "none", fill = "none"}) => {
-    circleRef = canvas.circle(circle.r).stroke(stroke).fill(fill);
+    let circleRef = canvas.circle(circle.r).stroke(stroke).fill(fill);
     if (circle.hasOwnProperty("cx")) {
         circleRef.center(circle.cx, circle.cy);
     }

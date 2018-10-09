@@ -1,10 +1,11 @@
-require('./svgblueprint');
-require('./svgbuilder');
+var blueprint = require('./blueprint.json');
+require('particles.js');
+import { animator, illustrator } from './svgbuilder';
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
 
-  particlesJS.load("particles-js", "assets/js/vendor/particlesjs-config.json", () =>
+  particlesJS.load("particles-js", "./particlesjs.json", () =>
     document.getElementById("particles-js").style.animation = "show 2s forwards");
 
   window.onpopstate = () => selectPage(canvas, window.location.hash);
@@ -31,7 +32,7 @@ function selectPage(canvas, hash) {
   document.querySelector("a[href=\"#" + id + "\"]").parentElement.classList.add("active");
 
   clearCanvas(canvas);
-  animator(illustrator(canvas, window[content.dataset.animation]));
+  animator(illustrator(canvas, blueprint[content.dataset.animation]));
 }
 
 function clearCanvas(draw) {

@@ -5,17 +5,16 @@ const source = require('vinyl-source-stream');
 const buffer = require("vinyl-buffer");
 const sass = require('gulp-sass');
 const babel = require('gulp-babel');
+const babelify = require('babelify');
 const uglify = require('gulp-uglify');
-const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 
 exports.css = (cb) => {
-  pump([gulp.src('_css/**/*.?(s)css'),
+  pump([gulp.src('_css/main.scss'),
         sourcemaps.init(),
         autoprefixer(),
-        concat('stylesheet.css'),
         sass(),
         cleanCSS(),
         sourcemaps.write('.'),
@@ -24,15 +23,19 @@ exports.css = (cb) => {
 
 exports.js = (cb) => {
   var b = browserify({
-    entries: './_js/main.js',
-    debug: true
-  });
+    entries:'./_js/main.js',
+    debug: true,
+  }).transform(
+    babelify.configure({
+      presets: ["@babel/preset-env"]
+    })
+  );
 
   pump([b.bundle(),
         source('javascript.js'),
         buffer(),
         sourcemaps.init(),
-        babel({presets: ['@babel/preset-env']}),
+        // babel({presets: ['@babel/preset-env']}),
         uglify(),
         sourcemaps.write('.'),
         gulp.dest('dist')], cb);
