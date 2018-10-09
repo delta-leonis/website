@@ -12,7 +12,7 @@ pwd
 remote=$(git config remote.origin.url)
 
 # generate javadoc
-gulp build
+npm install && gulp build
 
 # make a directory to put the gp-pages branch
 mkdir gh-pages-branch
