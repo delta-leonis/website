@@ -1,6 +1,6 @@
-require('svg.js');
-require('svg.easing.js');
-import Vivus from 'vivus';
+require("svg.js");
+require("svg.easing.js");
+import Vivus from "vivus";
 
 export { illustrator, animator };
 

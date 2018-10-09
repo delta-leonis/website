@@ -1,6 +1,6 @@
-var blueprint = require('/blueprint.json');
-require('particles.js');
-import { animator, illustrator } from './svgbuilder';
+var blueprint = require("/blueprint.json");
+require("particles.js");
+import { animator, illustrator } from "./svgbuilder";
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
