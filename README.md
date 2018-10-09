@@ -15,7 +15,8 @@ If you install a [livereload](http://livereload.com/extensions/)-plugin for your
 
 ## Gulp tasks
 
-
+| task      | description |
+|---------- |------------ |
 | `css`    | bundle and transpile stylesheet (to dist/main.css) |
 | `js`     | bundle, autoprefix, browserify, and babelify javascript (to dist/javascript.js) |
 | `assets` | run `css` and `js` tasks |
