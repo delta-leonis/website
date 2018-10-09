@@ -1,11 +1,11 @@
-var blueprint = require('./blueprint.json');
+var blueprint = require('/blueprint.json');
 require('particles.js');
 import { animator, illustrator } from './svgbuilder';
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
 
-  particlesJS.load("particles-js", "./particlesjs.json", () =>
+  particlesJS.load("particles-js", "./assets/particlesjs.json", () =>
     document.getElementById("particles-js").style.animation = "show 2s forwards");
 
   window.onpopstate = () => selectPage(canvas, window.location.hash);

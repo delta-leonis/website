@@ -25,18 +25,15 @@ exports.js = (cb) => {
   var b = browserify({
     entries:'./_js/main.js',
     debug: true,
-  }).transform(
-    babelify.configure({
+    transform: [babelify.configure({
       presets: ["@babel/preset-env"]
-    })
-  );
+    })]});
 
   pump([b.bundle(),
         source('javascript.js'),
         buffer(),
-        sourcemaps.init(),
-        // babel({presets: ['@babel/preset-env']}),
+        sourcemaps.init({loadMaps: true}),
         uglify(),
-        sourcemaps.write('.'),
+        sourcemaps.write('./'),
         gulp.dest('dist')], cb);
 };
