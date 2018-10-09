@@ -1,6 +1,6 @@
 require('svg.js');
 require('svg.easing.js');
-const Vivus = require('vivus');
+import Vivus from 'vivus';
 
 export { illustrator, animator };
 
