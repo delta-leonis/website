@@ -22,14 +22,16 @@ exports.css = (cb) => {
 };
 
 exports.js = (cb) => {
-  var b = browserify({
-    entries:'./_js/main.js',
-    debug: true,
-    transform: [babelify.configure({
-      presets: ["@babel/preset-env"]
-    })]});
-
-  pump([b.bundle(),
+  pump([browserify({
+          entries:'./_js/main.js',
+          debug: true,
+          blacklist: ["useStrict"], // svg.easing.js breaks otherwise
+          transform: [
+            babelify.configure({
+              presets: ["@babel/preset-env"]
+            })
+          ]
+        }).bundle(),
         source('javascript.js'),
         buffer(),
         sourcemaps.init({loadMaps: true}),

@@ -1,4 +1,4 @@
-var blueprint = require("/blueprint.json");
+var blueprint = require("./blueprint.json");
 require("particles.js");
 import { animator, illustrator } from "./svgbuilder";
 
