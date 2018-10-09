@@ -1,5 +1,8 @@
 const gulp = require('gulp');
+const browserify = require('browserify');
 const pump = require('pump');
+const source = require('vinyl-source-stream');
+const buffer = require("vinyl-buffer");
 const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
@@ -20,19 +23,16 @@ exports.css = (cb) => {
 };
 
 exports.js = (cb) => {
-  pump([gulp.src([
-          'node_modules/babel-polyfill/dist/polyfill.js',
-          // 'node_modules/particles.js/particles.js',
-          'node_modules/svg.js/dist/svg.js',
-          'node_modules/svg.easing.js/dist/svg.easing.js',
-          'node_modules/vivus/dist/vivus.js',
-          '_js/svgblueprint.js',
-          '_js/svgbuilder.js',
-          '_js/main.js'
-        ]),
+  var b = browserify({
+    entries: './_js/main.js',
+    debug: true
+  });
+
+  pump([b.bundle(),
+        source('javascript.js'),
+        buffer(),
         sourcemaps.init(),
         babel({presets: ['@babel/preset-env']}),
-        concat('javascript.js'),
         uglify(),
         sourcemaps.write('.'),
         gulp.dest('dist')], cb);

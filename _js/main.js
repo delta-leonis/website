@@ -1,3 +1,6 @@
+require('./svgblueprint');
+require('./svgbuilder');
+
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = SVG("svg-container").size("90%", "90%").viewbox(0, 0, 640, 480);
 

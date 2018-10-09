@@ -1,3 +1,7 @@
+require('svg.js');
+require('svg.easing.js');
+require('vivus');
+
 function illustrator(canvas, blueprint = []) {
   let shapeRef = [],
       animationRef = {};
