@@ -15,7 +15,6 @@ jobs:
           command:  |
             gem install jekyll
             sudo npm install --global
-            sudo npm install gulp-cli --global
             sudo npm install
 
       - run: gulp build
