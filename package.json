@@ -1,8 +1,8 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "delta leonis landing page",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,11 @@
     "type": "git",
     "url": "https://github.com//delta-leonis/website"
   },
-  "author": "",
-  "license": "ISC",
+  "author": [
+    "Ohad Nathan",
+    "Jeroen de Jong"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
