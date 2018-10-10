@@ -14,7 +14,6 @@ jobs:
           name: install dependencies
           command:  |
             gem install jekyll
-            sudo npm install
             sudo npm install gulp-cli --global
             sudo npm install
 
