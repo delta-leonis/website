@@ -55,6 +55,5 @@ fi
 # for deployment
 cd ..
 rm -rf gh-pages-branch
-  
 
 echo "Finished Deployment!"
