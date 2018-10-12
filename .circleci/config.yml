@@ -12,9 +12,11 @@ jobs:
 
       - run:
           name: install dependencies
-          command: gem install jekyll
+          command:  |
+            gem install jekyll
+            npm install
 
-      - run: jekyll build
+      - run: npm run gulp build
 
       # deploy if green
       - deploy:

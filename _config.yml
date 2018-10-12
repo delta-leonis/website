@@ -1,8 +1,14 @@
 name: Delta Leonis
 title: Delta Leonis
 baseurl: /website
-sass:
-  style: compressed # possible values: nested expanded compact compressed
 
 collections:
   - page_collection
+
+exclude:
+  - package.json
+  - node_modules
+  - gulpfile.js
+  - _js
+  - _scss
+  - .circleci

@@ -1,28 +1,40 @@
 # Delta Leonis website
 
 ## Getting started
-The site is build using [Jekyll](https://jekyllrb.com/) and hosted [here](http://delta-leonis.github.io/website) on [GitHub Pages](https://pages.github.com/).
-In order to develop using Jekyll make sure [ruby is installed](https://www.ruby-lang.org/en/documentation/installation/) on your system.
+The site is build using [Jekyll](https://jekyllrb.com/) and [gulp.js](https://gulpjs.com/) and hosted [here](http://delta-leonis.github.io/website) on [GitHub Pages](https://pages.github.com/).
+In order to develop using Jekyll make sure [ruby](https://www.ruby-lang.org/en/documentation/installation/), and [npm](https://www.npmjs.com/) are installed on your system.
 
 Run the following commands
-```ruby
+```bash
 gem install jekyll
-jekyll serve
+npm install
+gulp serve
 # => Now browse to http://localhost:4000/website
 ```
-When changing files jekyll will automatically rebuild the files. If you install a [livereload](http://livereload.com/extensions/)-plugin for your browser ([firefox](https://addons.mozilla.org/en-US/firefox/addon/livereload/), [chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei), [safari](download.livereload.com/2.1.0/LiveReload-2.1.0.safariextz)) your browser can autoreload if you run `jekyll serve` with the `--livereload` flag.
+If you install a [livereload](http://livereload.com/extensions/)-plugin for your browser ([firefox](https://addons.mozilla.org/en-US/firefox/addon/livereload/), [chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei), [safari](download.livereload.com/2.1.0/LiveReload-2.1.0.safariextz)) your browser will autoreload whenever files are changed.
+
+## Gulp tasks
+
+| task      | description |
+|---------- |------------ |
+| `css`    | bundle and transpile stylesheet (to dist/main.css) |
+| `js`     | bundle, autoprefix, browserify, and babelify javascript (to dist/javascript.js) |
+| `assets` | run `css` and `js` tasks |
+| `jekyll` | build the site without assets |
+| `build`  | run `jekyll` and `assets` tasks |
+| `watch`  | start `jekyll` in watchmode, and watch _scss and _js folder for changes. reload browser on change |
+| `serve`  | run `assets` and `watch` tasks. |
 
 ## Directory structure
 ```shell
 .
-├── _config.yml      ; Jekyll config
 ├── _includes        ; partial layout files
 │   └── ...
 ├── _layouts         ; layout files
 │   └── ...
 ├── _page_collection ; site content in markdown
 │   └── ...
-├── _sass            ; scss stylesheets
+├── _scss            ; scss stylesheets
 │   └── ...
 ├── assets           ; static files
 │   └── ...
@@ -30,6 +42,8 @@ When changing files jekyll will automatically rebuild the files. If you install 
 │   └── ...
 ├── _site            ; build destination
 │   └── ...
+├── gulpfile.js      ; gulp tasks
+├── _config.yml      ; Jekyll config
 └── index.md         ; entry point of the website
 ```
 
