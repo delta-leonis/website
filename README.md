@@ -45,7 +45,7 @@ If you install a [livereload](http://livereload.com/extensions/)-plugin for your
 ├── gulpfile.js      ; gulp tasks
 ├── _config.yml      ; Jekyll config
 └── index.md         ; entry point of the website
-``
+```
 
 ## Deployment
 Run `.circleci/deploy-ghpages.sh` in oder to build the site and deploy it to `http://delta-leonis.github.io/website`. Make sure you have Jekyll setup.
