@@ -69,6 +69,7 @@ gulp.task('watch', (cb) => {
   });
 });
 
-gulp.task('assets', gulp.parallel('js', 'css'));
-gulp.task('build',  gulp.series('assets', 'jekyll'));
-gulp.task('serve',  gulp.parallel('assets', 'watch'));
+gulp.task('assets',  gulp.parallel('js', 'css'));
+gulp.task('build',   gulp.series('assets', 'jekyll'));
+gulp.task('serve',   gulp.parallel('assets', 'watch'));
+gulp.task('default', gulp.series('serve'));
