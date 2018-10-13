@@ -14,6 +14,7 @@ const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
 const log = require('fancy-log');
 const watch = require('gulp-watch');
+const browserSync = require('browser-sync').create();
 
 gulp.task('css', (cb) => {
   pump([gulp.src([
@@ -57,9 +58,13 @@ gulp.task('jekyll', (cb) => {
 });
 
 gulp.task('watch', (cb) => {
-  let jekyll = spawn('jekyll', ['serve', '--livereload'], {
+  let jekyll = spawn('jekyll', ['serve'], {
     stdio: 'inherit'
   });
+
+  browserSync.init({server: {baseDir: '_site/'}});
+  // Reloads page when some of the already built files changed:
+  gulp.watch('_site/**/*.*').on('change', browserSync.reload);
 
   watch(['_scss/*.scss'], gulp.task('css'));
   watch(['_js/*.js'], gulp.task('js'));
