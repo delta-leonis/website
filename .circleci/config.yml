@@ -17,6 +17,8 @@ jobs:
             npm install
 
       - run: npm run gulp build
+      
+      - run: DRYRUN=true .circleci/deploy-ghpages.sh
 
       # deploy if green
       - deploy:
