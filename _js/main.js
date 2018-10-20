@@ -1,6 +1,6 @@
 const blueprint = require('./blueprint.json');
 require('particles.js');
-import { animator, illustrator } from './svgbuilder';
+import { animate, illustrate } from './svgbuilder';
 
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = SVG('svg-container')
@@ -45,7 +45,7 @@ const selectPage = (canvas, hash) => {
     .parentElement.classList.add('active');
 
   clearCanvas(canvas);
-  animator(illustrator(canvas, blueprint[content.dataset.animation]));
+  animate(illustrate(canvas, blueprint[content.dataset.animation]));
 }
 
 const clearCanvas = (draw) => {
