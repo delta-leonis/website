@@ -53,8 +53,12 @@ html {
         #content {
           padding-top: 0;
           p {margin: 4% 0}
+          & > div {
+            padding-top: 0
+          }
         }
         #svg-container {
+          width: 100%;
           display: flex;
           justify-content: center;
         }

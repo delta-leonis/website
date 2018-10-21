@@ -3,7 +3,7 @@ require("particles.js");
 import { animator, illustrator } from "./svgbuilder";
 
 document.addEventListener("DOMContentLoaded", () => {
-  let canvas = SVG("svg-container").size("530", "330px").viewbox(0, 0, 640, 480);
+  let canvas = SVG("svg-container").size("530", "330").viewbox(0, 0, 640, 480);
 
   particlesJS.load("particles-js", "./assets/particlesjs.json", () =>
     document.getElementById("particles-js").style.animation = "show 2s forwards");
